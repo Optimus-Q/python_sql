@@ -30,7 +30,7 @@ conn = engine_.connect()
 # we need meta table to create table for thread safe
 metadata = MetaData()
 cookies_tb = Table('cookies', metadata,
-                   Column('cookie_id', Integer(), primary_key=True),
+                   Column('cookie_id', Integer(), autoincrement= True, primary_key=True),
                    Column('cookie_name', String(50), index=True),
                    Column('cookie_recipe_url', String(255)),
                    Column('cookie_sku', String(55)),
@@ -38,7 +38,7 @@ cookies_tb = Table('cookies', metadata,
                    Column('unit_cost', Numeric(12, 2)))
 
 users_tb = Table('users', metadata,
-                 Column('user_id', Integer(), primary_key=True),
+                 Column('user_id', Integer(), autoincrement= True, primary_key=True),
                  Column('user_name', String(15), nullable=False, unique=True),
                  Column('email_address', String(255), nullable=False),
                  Column('phone', String(20), nullable=False),
@@ -47,12 +47,12 @@ users_tb = Table('users', metadata,
                  Column('updated_on', DateTime(), default=datetime.now, onupdate=datetime.now()))
 
 orders_tb = Table('orders', metadata,
-                  Column('order_id', Integer(), primary_key=True),
+                  Column('order_id', Integer(), autoincrement= True, primary_key=True),
                   Column('user_id', ForeignKey('users.user_id')),
                   Column('shipped', Boolean(), default=False))
 
 line_items_tb = Table('line_items', metadata,
-                      Column('line_items_id', Integer(), primary_key=True),
+                      Column('line_items_id', Integer(), autoincrement= True, primary_key=True),
                       Column('order_id', ForeignKey('orders.order_id')),
                       Column('cookie_id', ForeignKey('cookies.cookie_id')),
                       Column('quantity', Integer()),
